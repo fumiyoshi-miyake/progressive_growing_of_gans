@@ -18,8 +18,8 @@ class EasyDict(dict):
 #----------------------------------------------------------------------------
 # Paths.
 
-data_dir = 'datasets'
-result_dir = 'results'
+data_dir = '/kaggle/working'
+result_dir = '/kaggle/working/results'
 
 #----------------------------------------------------------------------------
 # TensorFlow options.
@@ -49,8 +49,10 @@ D_loss      = EasyDict(func='loss.D_wgangp_acgan')          # Options for discri
 sched       = EasyDict()                                    # Options for train.TrainingSchedule.
 grid        = EasyDict(size='1080p', layout='random')       # Options for train.setup_snapshot_image_grid().
 
+desc += '-japanese-512'; dataset = EasyDict(tfrecord_dir='512_for_PGGAN'); train.network_snapshot_ticks = 1; train.mirror_augment = True
+
 # Dataset (choose one).
-desc += '-celebahq';            dataset = EasyDict(tfrecord_dir='celebahq'); train.mirror_augment = True
+#desc += '-celebahq';            dataset = EasyDict(tfrecord_dir='celebahq'); train.mirror_augment = True
 #desc += '-celeba';              dataset = EasyDict(tfrecord_dir='celeba'); train.mirror_augment = True
 #desc += '-cifar10';             dataset = EasyDict(tfrecord_dir='cifar10')
 #desc += '-cifar100';            dataset = EasyDict(tfrecord_dir='cifar100')
@@ -121,6 +123,10 @@ desc += '-fp32'; sched.max_minibatch_per_gpu = {256: 16, 512: 8, 1024: 4}
 #desc += '-VERBOSE'; sched.tick_kimg_base = 1; sched.tick_kimg_dict = {}; train.image_snapshot_ticks = 1; train.network_snapshot_ticks = 100
 #desc += '-GRAPH'; train.save_tf_graph = True
 #desc += '-HIST'; train.save_weight_histograms = True
+
+#Resume
+#train.resume_run_id = '/content/drive/MyDrive/PGGAN/progressive_growing_of_gans/results/012-pgan-japanese-512-preset-v2-1gpu-fp32/network-snapshot-004386.pkl';
+#train.resume_kimg = 4386
 
 #----------------------------------------------------------------------------
 # Utility scripts.
